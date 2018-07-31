@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from sendEmail import send_email
+from logDB import new_student
 import json
 
 app = Flask(__name__)
@@ -12,6 +13,7 @@ def route():
 def send():
    #print(json.dumps(request.data))
     N = json.loads(request.data)        #Get user data from manual input
+    new_student(N)
     send_email(N)
     return json.dumps("HELLO")
 
