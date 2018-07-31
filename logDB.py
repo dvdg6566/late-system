@@ -36,3 +36,15 @@ def add_sample_data():
     logs.insert_many(a)
     for i in logs.find():
         pprint(i)
+
+def query_student(id):
+    client = pymongo.MongoClient()
+    logs = client.cepfp.studentlogs
+    students = client.cepfp.studentdata
+    D = {}
+    s = logs.find_one({"StudentId": id})
+    D["Occurence"] = s["Occurence"]
+    s = students.find_one({"card_number": id})
+    D["name"] = s["name"]
+    D["class"] = s["class"]
+    return D

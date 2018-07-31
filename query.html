@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/components/video.min.js">
+</head>
+<div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a href="index.html" class="item">New Student</a>
+            <a href="query.html" class="active item">Query Student</a>
+        </div>
+    </div>
+</div>
+<div id='holder' class='ui button massive' style='background-color: #fff; border: solid #2C3E50 3px; border-radius: 6px; margin-top: 0.6em; margin-left: 0.6em;'>
+    <div class='ui input'>
+        <input type='text' id='query_name' data-id='12432' placeholder='Student Query'>
+    </div>
+    <input id="query-submit" class="ui button massive" style="background-color: #fff; color: #2C3E50; border: solid 3px #2C3E50;"
+        type="submit" />
+    </input>
+</div>
+<div id='result' class='ui button massive' style='background-color: #fff; border: solid #2C3E50 3px; border-radius: 6px; margin-top: 0.6em; margin-left: 0.6em; border-color: #fff'>
+</div>
+
+
+<body>
+    <script src="query.js"></script>
+</body>
+</html>
