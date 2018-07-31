@@ -1,0 +1,101 @@
+.grid.container {
+    margin-top: 5em;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.ui.card>.content,
+.ui.cards>.card>.content {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-size: 2.2em !important;
+    font-weight: 900 !important;
+}
+
+ui.card>.content {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 2.2em;
+    font-weight: 900;
+}
+
+.ui.card {
+    width: 48%;
+    margin: 1% !important;
+    float: left;
+}
+
+.ui.card>:last-child {
+    margin-left: none !important;
+    margin-right: 2.2em;
+    margin-bottom: 2.2em;
+}
+
+.ui.container.many-cards {
+    height: auto;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#first_col,
+#second_col,
+#third_col {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,400,400i,700,700i');
+h1.ui.header {
+    font-size: 3.5em;
+}
+
+.masthead h1.ui.header {
+    margin-top: 2.8em;
+}
+
+.ui.secondary.inverted.pointing.menu {
+    border: none;
+}
+
+.ui.inverted.segment,
+.ui.primary.inverted.segment {
+    background: #2C3E50;
+}
+
+.ui.header {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 100;
+}
+
+.ui.text.container {
+    max-width: 400px !important;
+    float: left;
+    text-align: left;
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.ui.menu {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 100;
+}
+
+.ui.container.holder {
+    max-width: 700px !important;
+    text-align: center;
+}
+
+.highcharts-credits {
+    fill: #FFFFFF !important;
+    color: #FFFFFF !important;
+}
