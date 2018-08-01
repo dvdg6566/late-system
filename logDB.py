@@ -25,8 +25,8 @@ def add_sample_data():
         {"name": "Yin Jun", "card_number": "T0369696B", "class": "1A", "form_teacher_one": "Ms Yong Tau Foo", "form_teacher_two": "Mr Sir Dab Boi", "teachers_emails": ["czhdaniel@gmail.com","jothamlimjlj@gmail.com"]},
         {"name": "LYH", "card_number": "T0371111L", "class": "2I", "form_teacher_one": "Ms Yong Tau Foo", "form_teacher_two": "Mr Sir Dab Boi", "teachers_emails": ["czhdaniel@gmail.com", "jothamlimjlj@gmail.com"]}
     ]
-    #students.drop() # Clear the students collection in the test database
-    #students.insert_many(new_students)
+    students.drop() # Clear the students collection in the test database
+    students.insert_many(new_students)
 
     #pprint(students.find_one({"card_number": "T0312345A"}))
     a = []
@@ -49,3 +49,4 @@ def query_student(id):
     D["name"] = s["name"]
     D["class"] = s["class"]
     return D
+
