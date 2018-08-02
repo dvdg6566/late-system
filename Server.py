@@ -13,10 +13,10 @@ def route():
 def send():
    #print(json.dumps(request.data))
     N = json.loads(request.data)        #Get user data from manual input
-    new_student(N)
+    if new_student(N) == -1:
+        return json.dumps("Error")
     send_email(N)
-    return json.dumps("HELLO")
-
+    return json.dumps("Success")
 
 @app.route('/query', methods=["POST"])
 def query():
