@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/components/video.min.js">
+    <link rel="stylesheet" href="index.css">
+    <title>Atom | HR Data</title>
+</head>
+
+<body>
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div class="ui container">
+            <div class="ui large secondary inverted pointing menu">
+                <a href="index.html" class="item">New Student</a>
+                <a href="query.html" class="item">Query Student</a>
+                <a href="uploadstudents.html" class="active item">Update Student Database</a>
+            </div>
+        </div>
+    </div>
+    <div style="width: 80%; margin-left: 10%; margin-right: 10%; margin-top:1em" id="cards-container" class="ui inverted middle aligned container">
+        <div class="ui card" style="width: 100%;">
+            <div class="content">UPLOAD FILE</div>
+            <div class="description">
+                <form action="http://localhost:5000/uploads" method="POST" enctype="multipart/form-data"></form>
+                <input class="ui button massive" style="background-color: #fff; color: #2C3E50;" type="file" name="studentdb" />
+                <input id="res" class="ui button custom_button massive" style="background-color: #fff; color: #2C3E50; border: solid 3px #2C3E50;"
+                    type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src="uploadstudents.js"></script>
+</body>
+
+</html>

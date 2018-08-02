@@ -22,8 +22,8 @@ def send_email(id):
     text += "\n\nThank you."
     email(f['teachers_emails'],text,f["name"])
 
-
 def email(toaddr,text,name):
+    b = [i.split('"')[1] for i in toaddr.split('[')[1].split(']')[0].split(",")]
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login("cepy3testing@gmail.com", "testing777")
@@ -31,11 +31,11 @@ def email(toaddr,text,name):
     fromaddr = "cepy3testing@gmail.com"
     msg = MIMEMultipart()
     msg['From'] = fromaddr
-    msg['To'] = ", ".join(toaddr)
+    msg['To'] = ", ".join(b)
     msg['Subject'] = "Student " + name + " leaving early from school"
     msg.attach(MIMEText(text, 'plain'))
 
-    server.sendmail(fromaddr,toaddr, msg.as_string())
+    server.sendmail(fromaddr,b, msg.as_string())
     server.quit()
 
 #email("czhdaniel@gmail.com","TEST")

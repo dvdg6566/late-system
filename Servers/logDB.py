@@ -6,12 +6,12 @@ logs = client.cepfp.studentlogs
 students = client.cepfp.studentdata
 
 def new_student(id):
-    global logs
+    global logs,students
     try:
         s = logs.find_one({"StudentId":id})
         s["Occurence"] += 1
         logs.update({"StudentId":id},s)
-        return 0
+        return students.find_one({"card_number": id})["name"]
     except TypeError:
         return -1
 
