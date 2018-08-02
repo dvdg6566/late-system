@@ -6,10 +6,8 @@ document.getElementById('res').addEventListener('click', (e) => {
     fetch('http://localhost:5000/uploads', {
         method: 'POST',
         body: tempData
-    }).then((response) => {
-        return response.json()
-    }).then((data) => {
-        console.log(data)
+    }).then((res) => {
+        alert("Student Database has been updated.")
     }).catch((err) => {
         console.log(err)
     })

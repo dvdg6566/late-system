@@ -6,6 +6,10 @@ from pprint import pprint
 import datetime
 import json
 
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login("cepy3testing@gmail.com", "testing777")
+
 def send_email(id):
     client = pymongo.MongoClient()
     students = client.cepfp.studentdata
@@ -23,11 +27,8 @@ def send_email(id):
     email(f['teachers_emails'],text,f["name"])
 
 def email(toaddr,text,name):
+    global server
     b = [i.split('"')[1] for i in toaddr.split('[')[1].split(']')[0].split(",")]
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login("cepy3testing@gmail.com", "testing777")
-
     fromaddr = "cepy3testing@gmail.com"
     msg = MIMEMultipart()
     msg['From'] = fromaddr
