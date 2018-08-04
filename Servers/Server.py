@@ -27,8 +27,7 @@ def query():
 
 @app.route('/uploads', methods=["POST"])
 def run():
-    upload(pd.read_csv(request.files['studentdb']))
-    return json.dumps("Done")
+    return upload(pd.read_csv(request.files['studentdb']))
 
 if __name__ == '__main__':
    app.run(debug=True, threaded=True, host="0.0.0.0")

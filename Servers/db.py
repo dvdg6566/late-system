@@ -43,11 +43,13 @@ def upload(df):
         for j in cols:
             df[j][ctr] = i[j]
     now = datetime.datetime.now()
-    fn = "csvFiles/Archive " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
+    fn = "Archive " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
+
     occ.drop()
-    df.to_csv(fn)
+    df.to_csv("csvFiles/" + fn)
+    return json.dumps(fn)
 
 def new_student(id):
     global logs, students
