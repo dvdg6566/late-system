@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-from sendEmail import send_email
-from logDB import new_student,query_student
+from db import *
 import json
-from uploadStudents import upload
 import pandas as pd
 
 app = Flask(__name__)
