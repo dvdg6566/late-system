@@ -29,5 +29,10 @@ def query():
 def run():
     return upload(pd.read_csv(request.files['studentdb']))
 
+@app.route('/queryDay',methods=["POST"])
+def process():
+    N = json.loads(request.data)
+    return Dayquery(N)
+
 if __name__ == '__main__':
    app.run(debug=True, threaded=True, host="0.0.0.0")

@@ -17,6 +17,25 @@ logs = client.cepfp.studentlogs
 students = client.cepfp.studentdata
 occ = client.cepfp.occurencelogs
 
+def Dayquery(s):
+    global occ
+    x = occ.find({"date": int(s)})
+    print(x[0])
+    l = 0
+    for i in x:
+        pprint(i)
+        l+=1
+    arr = [{} for i in range(l)]
+    print(l)
+    x = occ.find({"date": int(s)})
+    for i in range(l):
+        pprint(x[i])
+        arr[i]["name"] = x[i]["name"]
+        arr[i]["class"] = x[i]["class"]
+        arr[i]["time"] = x[i]["time"]
+    print(arr)
+    return json.dumps(arr)
+
 def upload(df):
     global logs, students, occ
     students.drop()
@@ -46,7 +65,6 @@ def upload(df):
     fn = "Archive " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
-
     occ.drop()
     df.to_csv("csvFiles/" + fn)
     return json.dumps(fn)
