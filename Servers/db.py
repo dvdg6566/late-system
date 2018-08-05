@@ -92,14 +92,19 @@ def new_student(id):
 
 
 def query_student(id):
-    global students, logs
+    global students, logs, occ
     try:
-        D = {}
+        D = [{},[]]
         s = logs.find_one({"StudentId": id})
-        D["Occurence"] = s["Occurence"]
+        D[0]["Occurence"] = s["Occurence"]
         s = students.find_one({"card_number": id})
-        D["name"] = s["name"]
-        D["class"] = s["class"]
+        D[0]["name"] = s["name"]
+        D[0]["class"] = s["class"]
+        s = occ.find({"StudentId":id})
+        for i in s:
+            D[1].append({})
+            D[1][-1]["date"] = i["date"]
+            D[1][-1]["time"] = i["time"]
         return D
     except TypeError:
         return []
