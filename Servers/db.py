@@ -9,9 +9,6 @@ import pandas as pd
 import numpy as np
 from math import floor
 
-server = smtplib.SMTP('smtp.gmail.com', 587)
-server.starttls()
-server.login("cepy3testing@gmail.com", "testing777")
 client = pymongo.MongoClient()
 logs = client.cepfp.studentlogs
 students = client.cepfp.studentdata
@@ -20,20 +17,22 @@ occ = client.cepfp.occurencelogs
 def Dayquery(s):
     global occ
     x = occ.find({"date": int(s)})
-    print(x[0])
+    if (len(str(s)) != 8):
+        print("HELLO")
+        return json.dumps("Invalid Date")
     l = 0
     for i in x:
         pprint(i)
         l+=1
     arr = [{} for i in range(l)]
-    print(l)
+    if l == 0:
+        print("XD")
+        return json.dumps("No Students were late on this date")
     x = occ.find({"date": int(s)})
     for i in range(l):
-        pprint(x[i])
         arr[i]["name"] = x[i]["name"]
         arr[i]["class"] = x[i]["class"]
         arr[i]["time"] = x[i]["time"]
-    print(arr)
     return json.dumps(arr)
 
 def upload(df):
@@ -119,6 +118,17 @@ def send_email(id):
     text += "\n\nThank you."
     email(f['teachers_emails'],text,f["name"])
 
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login("cepy3testing@gmail.com", "testing777")
+
+def smpt_connect():
+    global server
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login("cepy3testing@gmail.com", "testing777")
+
 def email(toaddr,text,name):
     global server
     b = [i.split('"')[1] for i in toaddr.split('[')[1].split(']')[0].split(",")]
@@ -128,5 +138,8 @@ def email(toaddr,text,name):
     msg['To'] = ", ".join(b)
     msg['Subject'] = "Student " + name + " leaving early from school"
     msg.attach(MIMEText(text, 'plain'))
-
-    server.sendmail(fromaddr,b, msg.as_string())
+    try:
+        server.sendmail(fromaddr,b, msg.as_string())
+    except:
+        smpt_connect()
+        server.sendmail(fromaddr, b, msg.as_string())
