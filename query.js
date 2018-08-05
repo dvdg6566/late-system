@@ -13,7 +13,6 @@ cv = (e) => {
 
 document.getElementById('query-submit').addEventListener('click', (e) => {
   s = JSON.stringify(document.getElementById('query_name').value)
-  console.log(s)
   fetch('http://localhost:5000/query', {
     method: 'POST',
     body: s,
@@ -27,7 +26,6 @@ document.getElementById('query-submit').addEventListener('click', (e) => {
       alert("Student ID is invalid")
     }else{
       document.getElementById('query_name').value = ""
-      console.log(res[0])
       while (document.getElementById('storage').firstChild) {
         document.getElementById('storage').removeChild(document.getElementById('storage').firstChild)
       }

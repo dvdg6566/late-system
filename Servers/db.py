@@ -18,15 +18,12 @@ def Dayquery(s):
     global occ
     x = occ.find({"date": int(s)})
     if (len(str(s)) != 8):
-        print("HELLO")
         return json.dumps("Invalid Date")
     l = 0
     for i in x:
-        pprint(i)
         l+=1
     arr = [{} for i in range(l)]
     if l == 0:
-        print("XD")
         return json.dumps("No Students were late on this date")
     x = occ.find({"date": int(s)})
     for i in range(l):
@@ -113,7 +110,6 @@ def send_email(id):
     global client,students,logs
     now = datetime.datetime.now()
     N = logs.find_one({"StudentId": id})["Occurence"]
-    #print(json.dumps(id))
     f = students.find_one({"card_number": id})
     text = "Dear " + f["form_teacher_one"] + " and " + f["form_teacher_two"] + ",\n\nThis is an email to inform you that " + f["name"] + " from class " + f["class"] + " has left school early on " + now.strftime("%d-%m-%Y") + " at " + now.strftime("%H:%M") + ".\n\n"
     if(N != 1):
