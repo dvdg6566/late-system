@@ -14,6 +14,7 @@ cv2 = (e) => {
   }
   return e[0] + e[1] + ":" + e[2] + e[3] + ":" + e[4] + e[5]
 }
+
 window.addEventListener('load',()=>{
   alert("Please input date in YYYYMMDD format. \nIf the required date is the current date, then leave the filed blank.")
 })
