@@ -10,7 +10,6 @@ import numpy as np
 from math import floor
 
 client = pymongo.MongoClient()
-logs = client.cepfp.studentlogs
 students = client.cepfp.studentdata
 occ = client.cepfp.occurencelogs
 
@@ -33,7 +32,7 @@ def Dayquery(s):
     return json.dumps(arr)
 
 def upload(df):
-    global logs, students, occ
+    global students, occ
     students.drop()
     new_students = [{} for i in range(df.shape[0])]
     col = df.columns
@@ -41,12 +40,6 @@ def upload(df):
         for j in col:
             new_students[i][j] = df[j][i]
     students.insert_many(new_students)
-    a = []
-    for i in new_students:
-        N = i["card_number"]
-        a.append({"StudentId": N, "Occurence": 0})
-    logs.drop()
-    logs.insert_many(a)
     length,ctr = 0,-1
     x = occ.find()
     for i in x:
@@ -66,11 +59,8 @@ def upload(df):
     return json.dumps(fn)
 
 def new_student(id):
-    global logs, students
+    global students
     try:
-        s = logs.find_one({"StudentId": id})
-        s["Occurence"] += 1
-        logs.update({"StudentId": id}, s)
         P = students.find_one({"card_number": id})
         now = datetime.datetime.now()
         date = now.year*10000+now.month*100+now.day
@@ -89,11 +79,9 @@ def new_student(id):
 
 
 def query_student(id):
-    global students, logs, occ
+    global students, occ
     try:
         D = [{},[]]
-        s = logs.find_one({"StudentId": id})
-        D[0]["Occurence"] = s["Occurence"]
         s = students.find_one({"card_number": id})
         D[0]["name"] = s["name"]
         D[0]["class"] = s["class"]
@@ -107,9 +95,10 @@ def query_student(id):
         return []
 
 def send_email(id):
-    global client,students,logs
+    global client,students,occ
     now = datetime.datetime.now()
-    N = logs.find_one({"StudentId": id})["Occurence"]
+    N = 0
+    for i in occ.find({"StudentId": id}): N += 1
     f = students.find_one({"card_number": id})
     text = "Dear " + f["form_teacher_one"] + " and " + f["form_teacher_two"] + ",\n\nThis is an email to inform you that " + f["name"] + " from class " + f["class"] + " has left school early on " + now.strftime("%d-%m-%Y") + " at " + now.strftime("%H:%M") + ".\n\n"
     if(N != 1):

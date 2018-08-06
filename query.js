@@ -35,7 +35,7 @@ document.getElementById('query-submit').addEventListener('click', (e) => {
         document.getElementById('result').innerHTML = document.getElementById('result').innerHTML + x
         document.getElementById('first_append').innerHTML = document.getElementById('first_append').innerHTML + "<br><br>" + "<div style='font-weight: 100'>" + res[0]["name"] + "</div>"
         document.getElementById('second_append').innerHTML = document.getElementById('second_append').innerHTML + "<br><br>" + "<div style='font-weight: 100'>" + res[0]["class"] + "</div>"
-        document.getElementById('third_append').innerHTML = document.getElementById('third_append').innerHTML + "<br><br>" + "<div style='font-weight: 100'>" + res[0]["Occurence"] + "</div>"
+        document.getElementById('third_append').innerHTML = document.getElementById('third_append').innerHTML + "<br><br>" + "<div style='font-weight: 100'>" + res[1].length + "</div>"
         s = '<table class="ui table"> <thead><tr><th>Date</th><th>Time</th></tr></thead><tbody></tbody>'
         for (let i = 0; i < res[1].length; ++i) {
           s += "<tr class='"
