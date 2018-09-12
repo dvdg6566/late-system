@@ -41,18 +41,18 @@ def download(df):
 def export():
     global occ
     now = datetime.datetime.now()
-    fn = "Archive " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
+    fn = "Logs " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
     cols = "StudentId,date,time,name,class\n"
-    output = open("./csvFiles/" + fn + ".csv","w")
+    output = open("../../" + fn,"w")
     output.write(cols)
     for log in occ.find():
         i = [str(log[x]) for x in log.keys() if x != '_id']
         output.write(','.join(i) + '\n')
     output.close()
     occ.drop()
-    return json.dumps(fn)
+    return json.dumps("Desktop/" + fn)
 
 def new_student(id):
     global students
