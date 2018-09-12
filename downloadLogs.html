@@ -17,7 +17,7 @@
                 <a href="index.html" class="item">New Student</a>
                 <a href="query.html" class="item">Query Student</a>
                 <a href="queryDay.html" class="item">Query Day</a>
-                <a href="uploadstudents.html" class="active item">Update Student Database</a>
+                <a href="downloadLogs.html" class="active item">Download Logs</a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="ui card" style="width: 100%;">
             <div class="content">UPLOAD FILE</div>
             <div class="description">
-                <form action="http://localhost:5000/uploads" method="POST" enctype="multipart/form-data"></form>
+                <form action="http://localhost:5000/downloadLogs" method="POST" enctype="multipart/form-data"></form>
                 <input class="ui button massive" style="background-color: #fff; color: #2C3E50;" type="file" name="studentdb" />
                 <input id="res" class="ui button custom_button massive" style="background-color: #fff; color: #2C3E50; border: solid 3px #2C3E50;"
                     type="submit" />
@@ -35,7 +35,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-    <script src="uploadstudents.js"></script>
+    <script src="downloadLogs.js"></script>
 </body>
 
 </html>

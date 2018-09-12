@@ -1,17 +1,13 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import pymongo
-from pprint import pprint
+from pymongo import MongoClient
 import datetime
 import json
-import pandas as pd
-import numpy as np
-from math import floor
 
-client = pymongo.MongoClient()
-students = client.cepfp.studentdata
-occ = client.cepfp.occurencelogs
+client = MongoClient()
+occ = client.cep.occ # Gets Collection occurences from database CEP
+students = client.cep.students #Gets collections students from database CEP
 
 def Dayquery(s):
     global occ
@@ -31,7 +27,7 @@ def Dayquery(s):
         arr[i]["time"] = x[i]["time"]
     return json.dumps(arr)
 
-def upload(df):
+def download(df):
     global students, occ
     students.drop()
     new_students = [{} for i in range(df.shape[0])]
@@ -40,22 +36,22 @@ def upload(df):
         for j in col:
             new_students[i][j] = df[j][i]
     students.insert_many(new_students)
-    length,ctr = 0,-1
-    x = occ.find()
-    for i in x:
-        length += 1
-    cols = ["StudentId", "date", "time", "name", "class"]
-    df = pd.DataFrame(np.ones(5*length).reshape(-1,5),columns=cols)
-    for i in occ.find():
-        ctr += 1
-        for j in cols:
-            df[j][ctr] = i[j]
+    return export()
+
+def export():
+    global occ
     now = datetime.datetime.now()
     fn = "Archive " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
+    cols = "StudentId,date,time,name,class\n"
+    output = open("./csvFiles/" + fn + ".csv","w")
+    output.write(cols)
+    for log in occ.find():
+        i = [str(log[x]) for x in log.keys() if x != '_id']
+        output.write(','.join(i) + '\n')
+    output.close()
     occ.drop()
-    df.to_csv("csvFiles/" + fn)
     return json.dumps(fn)
 
 def new_student(id):
@@ -77,7 +73,6 @@ def new_student(id):
     except TypeError:
         return -1
 
-
 def query_student(id):
     global students, occ
     try:
@@ -95,16 +90,14 @@ def query_student(id):
         return []
 
 def send_email(id):
-    global client,students,occ
+    global students,occ
     now = datetime.datetime.now()
     N = 0
     for i in occ.find({"StudentId": id}): N += 1
     f = students.find_one({"card_number": id})
     text = "Dear " + f["form_teacher_one"] + " and " + f["form_teacher_two"] + ",\n\nThis is an email to inform you that " + f["name"] + " from class " + f["class"] + " has left school early on " + now.strftime("%d-%m-%Y") + " at " + now.strftime("%H:%M") + ".\n\n"
-    if(N != 1):
-        text += "He has left school early " + str(N) + " times."
-    else:
-        text += "He has only left school early once."
+    if(N != 1):text += "He has left school early " + str(N) + " times."
+    else:text += "He has only left school early once."
     text += "\n\nThank you."
     email(f['teachers_emails'],text,f["name"])
 
@@ -120,15 +113,14 @@ def smpt_connect():
 
 def email(toaddr,text,name):
     global server
-    b = [i.split('"')[1] for i in toaddr.split('[')[1].split(']')[0].split(",")]
     fromaddr = "cepy3testing@gmail.com"
     msg = MIMEMultipart()
     msg['From'] = fromaddr
-    msg['To'] = ", ".join(b)
+    msg['To'] = toaddr
     msg['Subject'] = "Student " + name + " leaving early from school"
     msg.attach(MIMEText(text, 'plain'))
     try:
-        server.sendmail(fromaddr,b, msg.as_string())
+        server.sendmail(fromaddr,toaddr, msg.as_string())
     except:
         smpt_connect()
-        server.sendmail(fromaddr, b, msg.as_string())
+        server.sendmail(fromaddr,fromaddr, msg.as_string())

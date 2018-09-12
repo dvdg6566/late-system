@@ -105,3 +105,27 @@ h2 {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+.CB {
+    font-size: 24px;
+    width:10em;
+    height:2em;
+    font-size: 12px;
+    width:5em;
+    height:2em;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #FFFFFF;
+    background-color: #0000DD;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    color:#FFFFFF;
+}
+
+.CB:active{
+    background-color: #0000AA;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

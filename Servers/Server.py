@@ -24,9 +24,13 @@ def query():
     N = json.loads(request.data)  # Get user data from manual input
     return json.dumps(query_student(N))
 
-@app.route('/uploads', methods=["POST"])
+@app.route('/downloadLogs', methods=["POST"])
 def run():
-    return upload(pd.read_csv(request.files['studentdb']))
+    return download(pd.read_csv(request.files['studentdb']))
+
+@app.route('/downloadLogsWithoutReplacement', methods=["POST"])
+def IneedAname():
+    return export()
 
 @app.route('/queryDay',methods=["POST"])
 def process():
