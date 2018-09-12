@@ -11,7 +11,6 @@ def route():
 
 @app.route('/email',methods=["POST"])
 def send():
-   #print(json.dumps(request.data))
     N = json.loads(request.data)        #Get user data from manual input
     name = new_student(N)
     if name == -1:

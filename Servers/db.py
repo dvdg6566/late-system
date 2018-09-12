@@ -108,7 +108,6 @@ def send_email(id):
     text += "\n\nThank you."
     email(f['teachers_emails'],text,f["name"])
 
-
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login("cepy3testing@gmail.com", "testing777")
