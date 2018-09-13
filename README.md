@@ -18,4 +18,4 @@ Running:
 
 Open the file "index.html" in browser. Turn on CORS. 
 
-(For now) enter the servers folder and run "Server.py" with python3: _python3 Server.py_s
+(For now) enter the servers folder and run "Server.py" with python3: _python3 Server.pys_
