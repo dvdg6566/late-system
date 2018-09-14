@@ -1,9 +1,11 @@
+from flask import Flask, render_template, request, jsonify
+import json
+import pandas as pd
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pymongo import MongoClient
 import datetime
-import json
 
 client = MongoClient()
 occ = client.cep.occ # Gets Collection occurences from database CEP
@@ -45,7 +47,7 @@ def export():
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
     cols = "StudentId,date,time,name,class\n"
-    output = open("../../" + fn,"w")
+    output = open(fn,"w") 
     output.write(cols)
     for log in occ.find():
         i = [str(log[x]) for x in log.keys() if x != '_id']
@@ -124,3 +126,40 @@ def email(toaddr,text,name):
     except:
         smpt_connect()
         server.sendmail(fromaddr,fromaddr, msg.as_string())
+
+app = Flask(__name__)
+
+@app.route('/')
+def route():
+    return "Connected!"
+
+@app.route('/email',methods=["POST"])
+def send():
+    N = json.loads(request.data)        #Get user data from manual input
+    name = new_student(N)
+    if name == -1:
+        return json.dumps("Error")
+    send_email(N)
+    return json.dumps(name)
+
+@app.route('/query', methods=["POST"])
+def query():
+   #print(json.dumps(request.data))
+    N = json.loads(request.data)  # Get user data from manual input
+    return json.dumps(query_student(N))
+
+@app.route('/downloadLogs', methods=["POST"])
+def run():
+    return download(pd.read_csv(request.files['studentdb']))
+
+@app.route('/downloadLogsWithoutReplacement', methods=["POST"])
+def IneedAname():
+    return export()
+
+@app.route('/queryDay',methods=["POST"])
+def process():
+    N = json.loads(request.data)
+    return Dayquery(N)
+
+if __name__ == '__main__':
+   app.run(debug=True, threaded=True, host="0.0.0.0")
