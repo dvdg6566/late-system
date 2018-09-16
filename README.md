@@ -6,17 +6,30 @@ Used in RI for tracking students who are latecomers (as well as those who leave 
 
 # User's manual
 
-Installation:
+## Installation:
 
 Install the chrome extension CORS and turn it on
 
-Installing flask server and CSV libraries: run in command prompt(windows) /terminal(mac) (root folder): _pip3 install pymongo pandas flask_
+**Installing flask server and CSV libraries:**
+Windows:
+1. Search "cmd" in search bar
+2. Right click "Command Prompt" and click "Run as Administrator"
+3. Type in _pip3 install pymongo pandas flask_
+
+Mac:
+1. Run terminal
+2. Type in _pip3 install pymongo pandas flask_
 
 A possible Error is ErrNo 61 of pymongo: in that case run "brew services start mongodb"
 
-Install python3 by searching on the internet "Download python3" and then choose which one
+Install python3 by searching on the internet "Download python3" and then choose either Python 3.7.0 or Python 3.6.1
 
-Running:
+Installing Required Files:
+1. Download the files from github by clicking "Download ZIP"
+2. Extract the files into a new folder
+3. Drag the folder onto the desktop
+
+## Running:
 
 Open the file "index.html" in browser. Turn on CORS. 
 
