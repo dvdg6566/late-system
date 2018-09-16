@@ -8,9 +8,9 @@ Used in RI for tracking students who are latecomers (as well as those who leave 
 
 ## Installation:
 
-###### Install the chrome extension CORS
+Install the chrome extension CORS
 
-###### Installing flask server and CSV libraries:
+**Installing flask server and CSV libraries:**
 Windows:
 1. Search "cmd" in search bar
 2. Right click "Command Prompt" and click "Run as Administrator"
@@ -22,9 +22,9 @@ Mac:
 
 A possible Error is ErrNo 61 of pymongo: in that case run "brew services start mongodb"
 
-###### Install python3 by searching on the internet "Download python3" and then choose either Python 3.7.0 or Python 3.6.1
+Install python3 by searching on the internet "Download python3" and then choose either Python 3.7.0 or Python 3.6.1
 
-###### Installing Required Files:
+**Installing Required Files:**
 1. Download the files from github by clicking "Download ZIP"
 2. Extract the files into a new folder
 3. Drag the folder onto the desktop
