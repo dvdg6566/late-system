@@ -8,9 +8,9 @@ Used in RI for tracking students who are latecomers (as well as those who leave 
 
 ## Installation:
 
-Install the chrome extension CORS and turn it on
+###### Install the chrome extension CORS
 
-**Installing flask server and CSV libraries:**
+###### Installing flask server and CSV libraries:
 Windows:
 1. Search "cmd" in search bar
 2. Right click "Command Prompt" and click "Run as Administrator"
@@ -22,15 +22,17 @@ Mac:
 
 A possible Error is ErrNo 61 of pymongo: in that case run "brew services start mongodb"
 
-Install python3 by searching on the internet "Download python3" and then choose either Python 3.7.0 or Python 3.6.1
+###### Install python3 by searching on the internet "Download python3" and then choose either Python 3.7.0 or Python 3.6.1
 
-Installing Required Files:
+###### Installing Required Files:
 1. Download the files from github by clicking "Download ZIP"
 2. Extract the files into a new folder
 3. Drag the folder onto the desktop
 
 ## Running:
 
-Open the file "index.html" in browser. Turn on CORS. 
+1. Open the file "index.html" in browser. 
 
-Transfer the contents of the latepeople git file onto desktop. Run the file "server.py" using python launcher (3.7.0 or 3.6.1)
+2. Turn on CORS. 
+
+3. Run the file "server.py" in the latepeople git folder using python launcher (3.7.0 or 3.6.1)
