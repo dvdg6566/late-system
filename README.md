@@ -11,6 +11,7 @@ Used in RI for tracking students who are latecomers (as well as those who leave 
 Install the chrome extension CORS
 
 **Installing flask server and CSV libraries:**
+
 Windows:
 1. Search "cmd" in search bar
 2. Right click "Command Prompt" and click "Run as Administrator"
