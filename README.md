@@ -2,11 +2,11 @@
 
 CEP Y3 end-of-year project. 
 
-Used in RI 
-System to Track students who 
-- Are late for school
-- Leave school early
-Able to automatically send emails to form teachers of students for verification.   
+Features
+- Used in RI
+- Tracks students who leave school early
+- Tracks students who come to school late
+- Automatically sends emails to inform form teachers of students who leave early   
 
 # User's manual
 
