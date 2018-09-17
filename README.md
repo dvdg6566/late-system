@@ -17,6 +17,7 @@ Able to automatically send emails to form teachers of students for verification.
 2. Install the chrome extension CORS
 
 3. Installing flask server and CSV libraries:
+    
     Windows:
     1. Search "cmd" in search bar
     2. Right click "Command Prompt" and click "Run as Administrator"
