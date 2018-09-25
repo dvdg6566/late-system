@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pymongo import MongoClient
 import datetime
+from flask_cors import CORS
 
 client = MongoClient()
 occ = client.cep.occ # Gets Collection occurences from database CEP
@@ -31,7 +32,7 @@ def Dayquery(s):
 
 def download(df):
     global students, occ
-    students.drop()
+    students.drop() #Replaces the student database by clearing existing students
     new_students = [{} for i in range(df.shape[0])]
     col = df.columns
     for i in range(df.shape[0]):
@@ -47,13 +48,13 @@ def export():
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
     cols = "StudentId,date,time,name,class\n"
-    output = open(fn,"w") 
+    output = open(fn,"w") #Writes the headers into the csv
     output.write(cols)
     for log in occ.find():
-        i = [str(log[x]) for x in log.keys() if x != '_id']
-        output.write(','.join(i) + '\n')
+        i = [str(log[x]) for x in log.keys() if x != '_id'] #For each occurence of leaving early, add one 1 more line into the csv file for ouputting
+        output.write(','.join(i) + '\n') #We convert the array into a comma-separated string
     output.close()
-    occ.drop()
+    occ.drop() #Clears the database
     return json.dumps("Desktop/" + fn)
 
 def new_student(id):
@@ -89,13 +90,13 @@ def query_student(id):
             D[1][-1]["time"] = i["time"]
         return D
     except TypeError:
-        return []
+        return [] #The type error triggers if the student does not exist.
 
 def send_email(id):
     global students,occ
     now = datetime.datetime.now()
     N = 0
-    for i in occ.find({"StudentId": id}): N += 1
+    for i in occ.find({"StudentId": id}): N += 1 # Get the number of times the student has left early
     f = students.find_one({"card_number": id})
     text = "Dear " + f["form_teacher_one"] + " and " + f["form_teacher_two"] + ",\n\nThis is an email to inform you that " + f["name"] + " from class " + f["class"] + " has left school early on " + now.strftime("%d-%m-%Y") + " at " + now.strftime("%H:%M") + ".\n\n"
     if(N != 1):text += "He has left school early " + str(N) + " times."
@@ -109,13 +110,13 @@ server.login("cepy3testing@gmail.com", "testing777")
 
 def smpt_connect():
     global server
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP('smtp.gmail.com', 587) # To be replaced by legitimate details
     server.starttls()
-    server.login("cepy3testing@gmail.com", "testing777")
+    server.login("cepy3testing@gmail.com", "testing777") #To be replaced by legitimate details
 
 def email(toaddr,text,name):
     global server
-    fromaddr = "cepy3testing@gmail.com"
+    fromaddr = "cepy3testing@gmail.com" #To be changed for legitimate email
     msg = MIMEMultipart()
     msg['From'] = fromaddr
     msg['To'] = toaddr
@@ -124,14 +125,11 @@ def email(toaddr,text,name):
     try:
         server.sendmail(fromaddr,toaddr, msg.as_string())
     except:
-        smpt_connect()
+        smpt_connect() #If fails, that means server has timed out. Restart the server.
         server.sendmail(fromaddr,fromaddr, msg.as_string())
 
 app = Flask(__name__)
-
-@app.route('/')
-def route():
-    return "Connected!"
+CORS(app) #Enables the web UI to have permission to access the localhost:5000
 
 @app.route('/email',methods=["POST"])
 def send():
