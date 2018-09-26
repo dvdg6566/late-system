@@ -47,11 +47,16 @@ def export():
     fn = "Logs " + str(now.day) + "-"  + str(now.month) + "-" + str(now.year) + " at " + str(now.hour) + ":"
     if now.minute<10: fn += "0"
     fn += str(now.minute) + ".csv"
-    cols = "StudentId,date,time,name,class\n"
+    cols = "StudentId,name,date,time,class\n"
     output = open(fn,"w") #Writes the headers into the csv
     output.write(cols)
     for log in occ.find():
-        i = [str(log[x]) for x in log.keys() if x != '_id'] #For each occurence of leaving early, add one 1 more line into the csv file for ouputting
+        i = [None for i in range(5)] #we populate this array with the entries into the csv file then we appending to the bottom of the csv files
+        i[0] = log["StudentId"]
+        i[1] = log["name"]
+        i[2] = str(log["date"])
+        i[3] = str(log["time"])
+        i[4] = log["class"]
         output.write(','.join(i) + '\n') #We convert the array into a comma-separated string
     output.close()
     occ.drop() #Clears the database
@@ -108,7 +113,7 @@ server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login("cepy3testing@gmail.com", "testing777")
 
-def smpt_connect():
+def smtp_connect():
     global server
     server = smtplib.SMTP('smtp.gmail.com', 587) # To be replaced by legitimate details
     server.starttls()
@@ -125,7 +130,7 @@ def email(toaddr,text,name):
     try:
         server.sendmail(fromaddr,toaddr, msg.as_string())
     except:
-        smpt_connect() #If fails, that means server has timed out. Restart the server.
+        smtp_connect() #If fails, that means server has timed out. Restart the server.
         server.sendmail(fromaddr,fromaddr, msg.as_string())
 
 app = Flask(__name__)
